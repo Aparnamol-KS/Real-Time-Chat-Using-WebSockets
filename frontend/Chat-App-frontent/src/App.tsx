@@ -17,7 +17,7 @@ function App() {
 
     setMessages(m => [...m, message]); // add locally
     //@ts-ignore
-    inpRef.current?.value = ""; // clear input
+    inpRef.current.value = ""; // clear input
   }
 
   useEffect(() => {
