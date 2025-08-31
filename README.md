@@ -3,6 +3,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-blue?logo=tailwind-css&logoColor=white)
 ![WebSocket](https://img.shields.io/badge/WebSocket-API-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 
 **Real-Time Chat Using WebSockets** is a modern web application built with **React, TypeScript, and WebSockets**. It allows users to create or join dynamic chat rooms and communicate instantly.
