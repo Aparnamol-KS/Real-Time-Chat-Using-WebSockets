@@ -60,9 +60,18 @@ wss.on("connection", (socket) => {
 
             const room = rooms.get(parsedMessage.payload.roomId);
             // Invalid room
-            if (!room) return;
+            
 
-            room.members.add(parsedMessage.payload.userId)
+            if(!room){
+                socket.send(JSON.stringify({
+                    type:"error",
+                    payload:{
+                        message:"Room not found"
+                    }
+                }))
+            }
+
+            room?.members.add(parsedMessage.payload.userId)
 
             users.set(parsedMessage.payload.userId, {
                 id: parsedMessage.payload.userId,
@@ -73,7 +82,7 @@ wss.on("connection", (socket) => {
 
             socket.send(JSON.stringify({
                 type: "system",
-                payload: { message: "You joined room 123" }
+                payload: { message: `You joined room ${parsedMessage.payload.roomId}`  }
             }));
 
         }
