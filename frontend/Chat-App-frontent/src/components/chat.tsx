@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 function ChatInterface() {
-
+    const navigate = useNavigate();
     interface ChatMessages {
         userId: string,
         name: string,
@@ -10,12 +10,14 @@ function ChatInterface() {
     }
     const location = useLocation();
     const { roomId, name, mode } = location.state || {};
+    const [isJoined, setIsJoined] = useState(false);
+
 
     const [messages, setMessages] = useState<ChatMessages[]>([]);
     const wsRef = useRef<WebSocket | null>(null);
     const inpRef = useRef<HTMLInputElement | null>(null);
 
-    // Generate userId once and store in a ref
+ 
     const userIdRef = useRef<string>(crypto.randomUUID());
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -62,14 +64,22 @@ function ChatInterface() {
                     message: data.payload.message
                 }]);
             }
+            if (data.type === "error") {
+                alert(data.payload.message);
+                setIsJoined(false); 
+                navigate('/');
+                return;
+            }
 
             if (data.type === "system") {
+                setIsJoined(true); 
                 setMessages(m => [...m, {
                     userId: "system",
                     name: "System",
                     message: data.payload.message
                 }]);
             }
+
         };
 
 
@@ -98,6 +108,9 @@ function ChatInterface() {
         if (inpRef.current) inpRef.current.value = "";
     }
 
+    if (!isJoined) {
+        return <div className="p-4 h-screen font-jetbrains text-4xl flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">Connecting to room...</div>;
+    }
 
     return (
         <div className="h-screen font-jetbrains flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800">
@@ -124,7 +137,7 @@ function ChatInterface() {
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Input Bar */}
+                
                 <div className="p-2 sm:p-3 bg-gray-800 flex items-center space-x-2 border-t border-gray-700">
                     <input
                         ref={inpRef}
@@ -132,6 +145,7 @@ function ChatInterface() {
                         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                         placeholder="Type a message..."
                         className="flex-1 px-3 py-2 sm:px-4 sm:py-2 rounded-full bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                        required
                     />
                     <button
                         onClick={sendMessage}
