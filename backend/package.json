@@ -10,13 +10,13 @@
     "start": "node ./dist/index.js"
   },
   "dependencies": {
-    "@types/node": "^24.3.0",
-    "@types/ws": "^8.18.1",
     "typescript": "^5.9.2",
-    "ws": "^8.18.3"
+    "@types/node": "^24.7.0",
+    "ws": "^8.18.3",
+    "@types/ws": "^8.18.1"
   },
   "engines": {
-    "node": ">=22.16.0"
+    "node": ">=24.7.0"
   },
   "license": "ISC"
 }
