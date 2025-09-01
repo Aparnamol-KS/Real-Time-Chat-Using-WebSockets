@@ -8,6 +8,8 @@
 
 **Real-Time Chat Using WebSockets** is a modern web application built with **React, TypeScript, and WebSockets**. It allows users to create or join dynamic chat rooms and communicate instantly.
 
+## 🌐 Live Demo
+Check it out here: [https://real-time-chat-f7kx.onrender.com/](https://real-time-chat-f7kx.onrender.com/)
 
 ## ✨Features
 
