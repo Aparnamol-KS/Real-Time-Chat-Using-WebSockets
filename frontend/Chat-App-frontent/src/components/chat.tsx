@@ -27,7 +27,8 @@ function ChatInterface() {
 
 
     useEffect(() => {
-        const ws = new WebSocket('ws://localhost:8080');
+        const ws = new WebSocket('wss://real-time-chat-using-websockets.onrender.com');
+
         wsRef.current = ws;
 
         ws.onopen = () => {
