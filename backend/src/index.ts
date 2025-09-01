@@ -1,7 +1,9 @@
 
-import http, { IncomingMessage, ServerResponse } from "http";
+import * as http from "http";
+import type { IncomingMessage, ServerResponse } from "http";
 
 import { WebSocketServer, WebSocket } from "ws";
+import type { RawData } from "ws";
 
 const PORT = process.env.PORT || 8080;
 
@@ -30,7 +32,7 @@ const users: Map<string, User> = new Map();
 const rooms: Map<string, Room> = new Map();
 
 wss.on("connection", (socket: WebSocket) => {
-  socket.on("message", (message) => {
+  socket.on("message", (message: RawData) => {
     const parsedMessage = JSON.parse(message.toString());
 
     if (parsedMessage.type === "createRoom") {
