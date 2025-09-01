@@ -8,10 +8,7 @@
     "strict": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
