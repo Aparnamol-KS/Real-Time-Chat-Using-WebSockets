@@ -13,7 +13,6 @@
     "exactOptionalPropertyTypes": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "types": ["node"],
     "skipLibCheck": true
   },
   "include": ["src"],
