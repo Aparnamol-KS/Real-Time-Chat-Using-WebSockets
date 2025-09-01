@@ -1,9 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-     "dev": "tsc -b && node ./dist/index.js"
+    "dev": "tsc -b && node ./dist/index.js",
+    "build": "tsc -b",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -11,8 +13,10 @@
   "description": "",
   "type": "module",
   "dependencies": {
-    "@types/ws": "^8.18.1",
-    "typescript": "^5.9.2",
     "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "@types/ws": "^8.18.1"
   }
 }

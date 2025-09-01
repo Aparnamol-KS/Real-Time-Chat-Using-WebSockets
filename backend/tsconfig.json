@@ -1,34 +1,26 @@
 {
-  // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "module": "ESNext",
-    "target": "esnext",
-    "types": [],
+    "rootDir": "./src",           
+    "outDir": "./dist",           
+    "module": "CommonJS",         
+    "target": "ES2020",           
+    "esModuleInterop": true,      
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
 
-    // Stricter Typechecking Options
+    // Stricter Typechecking
+    "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
-    // Style Options
-    // "noImplicitReturns": true,
-    // "noImplicitOverride": true,
-    // "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noFallthroughCasesInSwitch": true,
-    // "noPropertyAccessFromIndexSignature": true,
+    // Module resolution for Node.js
+    "moduleResolution": "node",   
+    "resolveJsonModule": true,
 
-    // Recommended Options
-    "strict": true,
-    "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-  }
+    // Performance
+    "skipLibCheck": true
+  },
+  "include": ["src"],             
+  "exclude": ["node_modules", "dist"]
 }
