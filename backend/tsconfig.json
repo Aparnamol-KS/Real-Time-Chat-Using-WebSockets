@@ -17,6 +17,7 @@
     // Module resolution for Node.js
     "moduleResolution": "node",   
     "resolveJsonModule": true,
+    "types": ["node"],
 
     // Performance
     "skipLibCheck": true

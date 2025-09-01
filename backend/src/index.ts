@@ -1,13 +1,14 @@
-import * as http from "http";
+
+import http, { IncomingMessage, ServerResponse } from "http";
 
 import { WebSocketServer, WebSocket } from "ws";
 
 const PORT = process.env.PORT || 8080;
 
 // Create a simple HTTP server (Render needs something to ping)
-const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end("WebSocket server is running ..");
+const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("WebSocket server is running\n");
 });
 
 // Attach WebSocket server to the HTTP server
@@ -28,7 +29,7 @@ interface Room {
 const users: Map<string, User> = new Map();
 const rooms: Map<string, Room> = new Map();
 
-wss.on("connection", (socket) => {
+wss.on("connection", (socket: WebSocket) => {
   socket.on("message", (message) => {
     const parsedMessage = JSON.parse(message.toString());
 
