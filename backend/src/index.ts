@@ -19,7 +19,6 @@ interface Room {
 const users: Map<string, User> = new Map();
 const rooms: Map<string, Room> = new Map();
 
-// let allSockets: User[] = [];
 
 // users = {
 //   "u1" → { id: "u1", socket: socket1, roomId: "red", name: "Alice" },

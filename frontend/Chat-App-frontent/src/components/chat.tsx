@@ -101,20 +101,20 @@ function ChatInterface() {
 
     return (
         <div className="h-screen font-jetbrains flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800">
-            <div className="w-full max-w-2xl h-[90vh] flex flex-col bg-gray-900 text-white rounded-2xl shadow-2xl overflow-hidden">
+            <div className="w-full sm:max-w-md md:max-w-xl lg:max-w-2xl h-[90vh] flex flex-col bg-gray-900 text-white rounded-2xl shadow-2xl overflow-hidden">
 
-                <header className="p-4 bg-blue-900  flex items-center justify-between shadow-lg">
-                    <span className="text-lg">Room ID: <span className='font-bold'>{roomId}</span></span>
+                <header className="p-4 bg-blue-900 flex items-center justify-between shadow-lg">
+                    <span className="text-sm sm:text-lg">Room ID: <span className='font-bold'>{roomId}</span></span>
                 </header>
 
-                <div className="flex-1 overflow-y-auto p-6 space-y-3 scrollbar-hide">
+                <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 scrollbar-hide">
                     {messages.map((msg, idx) => {
                         const isMine = msg.userId === userIdRef.current;
                         const isSystem = msg.userId === "system";
 
                         return (
                             <div key={idx} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
-                                <span className={`px-4 py-2 rounded-2xl shadow-md max-w-[75%] break-words 
+                                <span className={`px-3 py-2 sm:px-4 sm:py-2 rounded-2xl shadow-md max-w-[85%] sm:max-w-[75%] break-words 
                                     ${isSystem ? "bg-gray-500 text-white text-sm italic mx-auto" : isMine ? "bg-blue-900 text-white" : "bg-gray-700 text-gray-200"}`}>
                                     {isSystem ? msg.message : `${msg.name}: ${msg.message}`}
                                 </span>
@@ -125,17 +125,17 @@ function ChatInterface() {
                 </div>
 
                 {/* Input Bar */}
-                <div className="p-3 bg-gray-800 flex items-center space-x-2 border-t border-gray-700">
+                <div className="p-2 sm:p-3 bg-gray-800 flex items-center space-x-2 border-t border-gray-700">
                     <input
                         ref={inpRef}
                         type="text"
                         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
                         placeholder="Type a message..."
-                        className="flex-1 px-4 py-2 rounded-full bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-900"
+                        className="flex-1 px-3 py-2 sm:px-4 sm:py-2 rounded-full bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-900"
                     />
                     <button
                         onClick={sendMessage}
-                        className="px-5 py-2 rounded-full bg-blue-900 hover:bg-blue-900 active:scale-95 transition transform text-white font-medium shadow-md"
+                        className="px-3 py-2 sm:px-5 sm:py-2 rounded-full bg-blue-900 hover:bg-blue-900 active:scale-95 transition transform text-white font-medium shadow-md"
                     >
                         Send
                     </button>
