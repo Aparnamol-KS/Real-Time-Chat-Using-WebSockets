@@ -5,15 +5,14 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsc && node ./dist/index.js",
     "build": "tsc",
     "start": "node ./dist/index.js"
   },
   "dependencies": {
-    "typescript": "^5.9.2",
-    "@types/node": "^24.7.0",
     "ws": "^8.18.3",
-    "@types/ws": "^8.18.1"
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.9.2",
+    "@types/node": "^24.7.0"
   },
   "engines": {
     "node": ">=24.7.0"

@@ -1,4 +1,3 @@
-
 import * as http from "http";
 import type { IncomingMessage, ServerResponse } from "http";
 
@@ -7,13 +6,13 @@ import type { RawData } from "ws";
 
 const PORT = process.env.PORT || 8080;
 
-// Create a simple HTTP server (Render needs something to ping)
+// Create HTTP server (needed for Render)
 const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
   res.end("WebSocket server is running\n");
 });
 
-// Attach WebSocket server to the HTTP server
+// Attach WebSocket server
 const wss = new WebSocketServer({ server });
 
 interface User {
@@ -39,53 +38,45 @@ wss.on("connection", (socket: WebSocket) => {
       if (!rooms.has(parsedMessage.payload.roomId)) {
         rooms.set(parsedMessage.payload.roomId, {
           id: parsedMessage.payload.roomId,
-          members: new Set([parsedMessage.payload.userId]),
+          members: new Set([parsedMessage.payload.userId])
         });
       }
 
       users.set(parsedMessage.payload.userId, {
         id: parsedMessage.payload.userId,
-        socket: socket,
+        socket,
         roomId: parsedMessage.payload.roomId,
-        name: parsedMessage.payload.name,
+        name: parsedMessage.payload.name
       });
 
-      socket.send(
-        JSON.stringify({
-          type: "system",
-          payload: { message: `Room ${parsedMessage.payload.roomId} created and joined` },
-        })
-      );
+      socket.send(JSON.stringify({
+        type: "system",
+        payload: { message: `Room ${parsedMessage.payload.roomId} created and joined` }
+      }));
     }
 
     if (parsedMessage.type === "joinRoom") {
       const room = rooms.get(parsedMessage.payload.roomId);
-
       if (!room) {
-        socket.send(
-          JSON.stringify({
-            type: "error",
-            payload: { message: "Room not found" },
-          })
-        );
+        socket.send(JSON.stringify({
+          type: "error",
+          payload: { message: "Room not found" }
+        }));
         return;
       }
 
       room.members.add(parsedMessage.payload.userId);
-
       users.set(parsedMessage.payload.userId, {
         id: parsedMessage.payload.userId,
-        socket: socket,
+        socket,
         roomId: parsedMessage.payload.roomId,
-        name: parsedMessage.payload.name,
+        name: parsedMessage.payload.name
       });
 
-      socket.send(
-        JSON.stringify({
-          type: "system",
-          payload: { message: `You joined room ${parsedMessage.payload.roomId}` },
-        })
-      );
+      socket.send(JSON.stringify({
+        type: "system",
+        payload: { message: `You joined room ${parsedMessage.payload.roomId}` }
+      }));
     }
 
     if (parsedMessage.type === "chat") {
@@ -98,24 +89,22 @@ wss.on("connection", (socket: WebSocket) => {
       room.members.forEach((memberId) => {
         const member = users.get(memberId);
         if (member) {
-          member.socket.send(
-            JSON.stringify({
-              type: "chat",
-              payload: {
-                roomId: parsedMessage.payload.roomId,
-                userId: parsedMessage.payload.userId,
-                name: sender.name,
-                message: parsedMessage.payload.message,
-              },
-            })
-          );
+          member.socket.send(JSON.stringify({
+            type: "chat",
+            payload: {
+              roomId: parsedMessage.payload.roomId,
+              userId: parsedMessage.payload.userId,
+              name: sender.name,
+              message: parsedMessage.payload.message
+            }
+          }));
         }
       });
     }
   });
 });
 
-// Start HTTP + WebSocket server
+// Start server
 server.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
